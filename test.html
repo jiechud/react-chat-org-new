@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Demo</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+    <div style="top:5px"><button id="reset">还原</button>
+        <button id="zoomIn">缩小</button>
+        <button id="zoomOut">放大</button>
+        <button id="translateX">向右平移</button>
+        <button id="translateY">向下平移</button>
+    </div>
+
+    <svg width="1000" height="700"></svg>
+
+
+    <script>
+        let svg = d3.select("svg"),
+            width = +svg.attr("width"),
+            height = +svg.attr("height");
+
+        let g = svg.append("g");
+
+        g.append("text")
+            .attr("x", width / 2)
+            .attr("y", height / 2)
+            .text("测试按钮放大、缩小Demo");
+
+        let zoom = d3.zoom()
+            .on("zoom", function () { // zoom事件
+                console.log(`Zoom: ${d3.zoomTransform(svg.node())}`);
+                console.log(`D3: : ${d3.event.transform}`);
+                g.attr("transform", d3.zoomTransform(svg.node()));
+            });
+
+        svg.call(zoom);
+
+        d3.select("#reset")
+            .on("click", function (d) {
+                svg.call(zoom.transform, d3.zoomIdentity);
+            });
+        d3.select("#zoomIn")
+            .on("click", function (d) {
+                zoom.scaleBy(svg, 0.9); // 执行该方法后 会触发zoom事件
+                let tran = d3.zoomTransform(svg.node());
+                // svg.attr("transform", `translate(${tran.x},${tran.y}),scale(${tran.k})`); // 您可以手动地更新
+                console.log(tran);
+            });
+
+        d3.select("#zoomOut")
+            .on("click", function (d) {
+                // zoom.scaleBy(svg, 1.1); // 执行该方法后 会触发zoom事件
+                let tran = d3.zoomTransform(svg.node());
+                svg.attr("transform", `translate(${tran.x},${tran.y}),scale(${tran.k})`); // 您可以手动地更新
+                console.log(tran);
+            });
+
+        d3.select("#translateX")
+            .on("click", function (d) {
+                zoom.translateBy(svg, 10, 0);
+                let tran = d3.zoomTransform(svg.node());
+                // svg.attr("transform", `translate(${tran.x},${tran.y}),scale(${tran.k})`);
+                console.log(tran);
+            });
+
+
+        d3.select("#translateY")
+            .on("click", function (d) {
+                zoom.translateBy(svg, 0, 10);
+                let tran = d3.zoomTransform(svg.node());
+                // svg.attr("transform", `translate(${tran.x},${tran.y}),scale(${tran.k})`);
+                console.log(tran);
+            });
+
+
+
+
+
+        function interpolateZoom(translate, scale) {
+
+            return d3.transition().duration(150).tween("zoom", function () {
+                var iTranslate = d3.interpolate(zoom.translate(), translate),
+                    iScale = d3.interpolate(zoom.scale(), scale);
+
+                return function (t) {
+                    zoom.scale(iScale(t)).translate(iTranslate(t));
+                };
+            });
+        };
+
+        function zoomed() {
+            g.transition().duration(1000)
+                .attr("transform", "translate(" + (window_width / 2 + translateX) + "," + (window_height / 2) +
+                    ")scale(" + zoomLevel + ")translate(" + (-x + 10) + "," + -y + ")")
+                .each("end", function () {
+                    if (zoomLevel > 1) {
+                        $("#zoom_control").show();
+                        showCenteredTextInCircle();
+                        interpolateZoom([x * zoomLevel, y * zoomLevel], zoomLevel);
+                        // zoom.scale(zoomLevel);
+                        // zoom.translate([x*zoomLevel, y*zoomLevel]);
+                    }
+                });
+        }
+    </script>
+
+
+</body>
+
+</html>
