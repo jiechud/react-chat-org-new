@@ -1,4 +1,4 @@
-const directionVal = '4' //'1'：向下， '2':向右， '3':向上， '4'：向左
+const directionVal = '1' //'1'：向下， '2':向右， '3':向上， '4'：向左
 
 const animationDuration = 350
 const shouldResize = true

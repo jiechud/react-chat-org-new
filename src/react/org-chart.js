@@ -30,6 +30,7 @@ class OrgChart extends PureComponent {
   renderFn(d, action) {
     if(action === "enter") {
       const div = document.createElement('div');
+      div.style.position = 'fixed';
       const portal = createPortal(this.props.renderFn(d), div);
       this.setState((state) => ({ portals: Object.assign({}, state.portals, { [d.id]: portal }) }));
       return div;
