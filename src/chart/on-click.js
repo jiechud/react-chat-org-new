@@ -91,7 +91,8 @@ function onMouseUp(config = {}) {
       ...config,
       sourceNode: datum
     })
-    centerNode(datum)
+    console.warn('-----mouse-up', config);
+    centerNode(datum, config);
   }
 }
 
@@ -215,9 +216,13 @@ function handleChildrenResult(config, datum) {
 }
 
 // 点击收起或展开时 调整更合适的位置
-function centerNode(source) {
-  var viewerWidth = document.documentElement.clientWidth;
-  var viewerHeight = document.documentElement.clientHeight;
+function centerNode(source, config) { 
+  if (!config) return;
+    
+
+  var viewerWidth = document.querySelector(config.id).clientWidth;
+  var viewerHeight = document.querySelector(config.id).clientHeight;
+  console.warn('-----------con', config, viewerWidth, viewerHeight);
   let scale = zoom.scale();
   let x = -source.x0;
   let y = -source.y0;

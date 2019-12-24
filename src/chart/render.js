@@ -288,7 +288,7 @@ const elemHeight = elem.offsetHeight
   // Render lines connecting nodes
   renderLines(config)
 
-  onClick.centerNode(treeData)
+  onClick.centerNode(treeData, config);
 }
 
 
