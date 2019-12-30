@@ -110,11 +110,11 @@ function renderLines(config = {}) {
                 y: d.source.y + nodeHeight / 2
               },
               {
-                x: d.source.x + nodeWidth + margin.left / 2,
+                x: d.source.x + nodeWidth + margin.left,
                 y: d.source.y + nodeHeight / 2
               },
               {
-                x: d.target.x - margin.left/2,
+                x: d.target.x - margin.left,
                 y: d.target.y + nodeHeight / 2
               },
               {

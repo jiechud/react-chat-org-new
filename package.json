@@ -1,6 +1,6 @@
 {
   "name": "@jiechud/react-org-chart-new",
-  "version": "0.1.17",
+  "version": "0.1.20",
   "description": "Simple, high-performance react component for d3 org chart",
   "repository": "https://github.com/jiechud/react-org-chart.git",
   "main": "dist/index.js",

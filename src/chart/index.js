@@ -32,6 +32,7 @@ function init(options) {
     lineType,
     margin,
     nodeWidth,
+    directionVal,
     nodeHeight,
     nodeSpacing,
     shouldResize
@@ -59,10 +60,17 @@ function init(options) {
   const elemWidth = elem.offsetWidth
   const elemHeight = elem.offsetHeight
 
+  let nodeSpace = null
+  if (directionVal === '2' || directionVal === '4') {
+    nodeSpace = [nodeHeight + nodeSpacing, nodeWidth + nodeSpacing]
+  } else {
+    nodeSpace = [nodeWidth + nodeSpacing, nodeHeight + nodeSpacing]
+  }
+
   // Setup the d3 tree layout
   config.tree = d3.layout
     .tree()
-    .nodeSize([nodeWidth + nodeSpacing, nodeHeight + nodeSpacing])
+    .nodeSize(nodeSpace)
 
   // Calculate width of a node with expanded children
   const childrenWidth = parseInt(treeData.children.length * nodeWidth / 2)
@@ -80,7 +88,7 @@ function init(options) {
     .attr(
       'transform',
       'translate(' +
-        parseInt(elemWidth / 2  - defaultConfig.nodeWidth/2) +
+        parseInt(elemWidth / 2  - config.nodeWidth/2) +
         ',' +
         20 +
         ')'

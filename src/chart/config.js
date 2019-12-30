@@ -1,4 +1,4 @@
-const directionVal = '3' //'1'：向下， '2':向右， '3':向上， '4'：向左
+const directionVal = '2' //'1'：向下， '2':向右， '3':向上， '4'：向左
 
 const animationDuration = 350
 const shouldResize = true
@@ -15,13 +15,15 @@ const margin = {
   top: 20,
   right: 20,
   bottom: 20,
-  left: 60
+  // left: 20
+  left: 20,
 }
 
 // Lines
 const lineType = 'angle'
 const lineDepthY = 120 /* Height of the line for child nodes */
-const lineDepthX = 300
+// const lineDepthX = 280
+const lineDepthX = 205;
 
 // Colors
 const backgroundColor = '#fff'

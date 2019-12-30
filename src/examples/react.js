@@ -27,7 +27,9 @@ const props = {
     console.log('treeChilder', tree.children)
     return Promise.resolve(tree.children)
   },
-  lineType: 'angle'
+  lineType: 'angle',
+  // nodeWidth: 165,
+  // nodeHeight: 68,
 }
 
 ReactDOM.render(React.createElement(OrgChart, props, null), root)

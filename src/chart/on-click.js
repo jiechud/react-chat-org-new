@@ -40,9 +40,9 @@ function onMouseUp(config = {}) {
 
     const c = d3.event.path.find(f => f.className === 'org-chat-item-collapse')
     // console.log('----c---', c);
-    // if (!c) {
-    //   return;
-    // }
+    if (!c) {
+      return;
+    }
     // console.log('--debug--', 0);
     // If this person doesn't have children but `hasChild` is true,
     // attempt to load using the `loadChildren` config function
@@ -65,6 +65,7 @@ function onMouseUp(config = {}) {
         return result.then(handler)
       } else {
         // console.log('--debug--', 4)
+        
         return handler(result)
       }
     }
@@ -212,6 +213,9 @@ function handleChildrenResult(config, datum) {
       ...config,
       sourceNode: result
     })
+
+    console.warn('-----mouse-up', config);
+    centerNode(datum, config);
   }
 }
 
@@ -226,8 +230,8 @@ function centerNode(source, config) {
   let scale = zoom.scale();
   let x = -source.x0;
   let y = -source.y0;
-  x = x * scale + viewerWidth / 2 - defaultConfig.nodeWidth/2;
-  y = y * scale + viewerHeight *2/ 5 - defaultConfig.nodeHeight/2;
+  x = x * scale + viewerWidth / 2 - config.nodeWidth/2;
+  y = y * scale + viewerHeight *2/ 5 - config.nodeHeight/2;
   d3.select('g')
     .transition()
     .duration(167)
